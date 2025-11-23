@@ -1,0 +1,28 @@
+tasks:
+  classify:
+    name: classify # Labels are dictated by the dataset and classification model
+    #interval_type: cqr # 'nonadaptive', 'cqr', 'lwr'
+    bound_type: 'two_sided' #'bound_lower' # 'bound_lower', 'bound_upper', 'two_sided'
+    num_classes: 2 # Number of classes
+conformal_method: naive # Conformal method (naive, joint_unified, unified)
+interval_type: cqr # 'nonadaptive', 'cqr', 'lwr'
+local_cov_weight: 0.0 # Weight for local covariance
+normalization_type: none #  'none', 'length', 'quantile_score'
+alpha_correction_type: independent # 'none', 'independent'
+alpha: [0.05] #[0.05, 0.1, 0.15, 0.2, 0.25, 0.3] # Error rate
+tau: 0.1 # Threshold level for multi-round experiments
+accels: [16,8,4,2] # Accelerations for MRI experiments
+num_ps: [4] #[1,4,32] #[1, 2, 4, 8, 16, 32] # Number of posteriors to average over
+num_cs: [32] #[1, 2, 4, 8, 16, 32] # Number of comparison posteriors
+eval:
+    num_trials: 1000 # Number of Monte Carlo trials
+    calib_split: 0.7    # Proportion of data to use for calibration
+    train_split: 0.3   # Proportion of data to use for training (from total, then calib_split is fraction of non-training)
+model:
+    load_ckpt_dir: /storage/logs/MulticoilCNF/version_0/ # Directory to load model from
+    classifier_load_ckpt_dir: /storage/logs/MultiLabelClassifier/version_29/ # Directory to load model from
+    #load_ckpt_dir: /storage/logs/VarNet/version_0/ # Directory to load model from
+data: mri_knee # Dataset to use (mri)
+log_folder: /storage/logs/conformal_multi/ # Directory to save logs
+
+

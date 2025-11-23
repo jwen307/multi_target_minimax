@@ -1,0 +1,43 @@
+tasks:
+  metric_psnr:
+    name: metric_psnr
+    #interval_type: cqr # 'nonadaptive', 'cqr', 'lwr'
+    bound_type: 'two_sided' #'bound_lower' # 'bound_lower', 'bound_upper', 'two_sided'
+
+  metric_dists:
+    name: metric_dists
+    #interval_type: cqr # 'nonadaptive', 'quantile', 'regression', 'none'
+    bound_type: 'two_sided' #'bound_upper'
+
+  metric_ssim:
+    name: metric_ssim
+    #interval_type: cqr # 'nonadaptive', 'cqr', 'lwr'
+    bound_type: 'two_sided' #'bound_lower' # 'bound_lower', 'bound_upper', 'two_sided'
+
+  metric_lpips:
+    name: metric_lpips
+    #interval_type: cqr # 'nonadaptive', 'cqr', 'lwr'
+    bound_type: 'two_sided' #'bound_upper' # 'bound_lower', 'bound_upper', 'two_sided'
+
+conformal_method: joint_unified # Conformal method (naive,  joint_unified, unified)
+interval_type: cqr # 'nonadaptive', 'cqr', 'lwr'
+local_cov_weight: 0.0 # Weight for local covariance
+normalization_type: length # 'none',  'length', 'quantile_score'
+alpha_correction_type: none # 'none', 'independent'
+alpha: [0.05, 0.1, 0.15, 0.2, 0.25, 0.3] # Error rate
+tau: 0.16 # Threshold level for multi-round experiments
+accels: [8] #[16,8,4,2] # Accelerations for MRI experiments
+num_ps: [1] #[1,4,32] #[1, 2, 4, 8, 16, 32] # Number of posteriors to average over
+num_cs: [32] #[1, 2, 4, 8, 16, 32] # Number of comparison posteriors
+eval:
+    num_trials: 10000 # Number of Monte Carlo trials
+    calib_split: 0.7    # Proportion of data to use for calibration
+    train_split: 0.3   # Proportion of data to use for training (from total, then calib_split is fraction of non-training)
+model:
+    load_ckpt_dir: /storage/logs/MulticoilCNF/version_0/ # Directory to load posterior model from
+    recovery_load_ckpt_dir: /storage/logs/VarNet/version_0/ # Directory to load recovery model from
+    #load_ckpt_dir: /storage/logs/VarNet/version_0/ # Directory to load model from
+data: mri_knee # Dataset to use (mri)
+log_folder: ../results/ #/storage/logs/conformal_multi/ # Directory to save logs
+
+

@@ -1,0 +1,41 @@
+tasks:
+  metric_psnr:
+    name: metric_psnr
+    bound_type: two_sided
+  metric_dists:
+    name: metric_dists
+    bound_type: two_sided
+  metric_ssim:
+    name: metric_ssim
+    bound_type: two_sided
+  metric_lpips:
+    name: metric_lpips
+    bound_type: two_sided
+conformal_method: naive
+interval_type: cqr
+local_cov_weight: 0.0
+normalization_type: none
+alpha_correction_type: independent
+alpha:
+- 0.05
+- 0.1
+- 0.15
+- 0.2
+- 0.25
+- 0.3
+tau: 0.16
+accels:
+- 8
+num_ps:
+- 1
+num_cs:
+- 32
+eval:
+  num_trials: 10000
+  calib_split: 0.7
+  train_split: 0.3
+model:
+  load_ckpt_dir: /storage/logs/MulticoilCNF/version_0/
+  recovery_load_ckpt_dir: /storage/logs/VarNet/version_0/
+data: mri_knee
+log_folder: ../results/
